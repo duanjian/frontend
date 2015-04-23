@@ -52,9 +52,9 @@
     //           {"First Name"=>"Adam", "Last Name"=>"Johnson", "Score"=>"67"}]
 
     // Ignore first column (name)
-    var table = $('#example-table').tableToJSON({
-        ignoreColumns: [0]
-    });
+    // var table = $('#example-table').tableToJSON({
+    //     ignoreColumns: [0]
+    // });
     // table == [{"Last Name"=>"Smith", "Score"=>"disqualified"},
     //           {"Last Name"=>"Jackson", "Score"=>"94"},
     //           {"Last Name"=>"Doe", "Score"=>"80"},
@@ -63,7 +63,7 @@
 
     var btn = $('#btnCSV');
     btn.on('click', function() {
-    	var data = table;
+        var data = table;
         if(data == '')
             return;
         
@@ -77,7 +77,8 @@
         var CSV = '';
         //Set Report title in first row or line
 
-        CSV += ReportTitle + '\r\n\n';
+        //空行
+        //CSV += ReportTitle + '\r\n\n';
 
         //This condition will generate the Label/Header
         if (ShowLabel) {
@@ -117,7 +118,7 @@
         }
 
         //Generate a file name
-        var fileName = "MyReport_";
+        var fileName = "Survey_Statistics";
         //this will remove the blank-spaces from the title and replace it with an underscore
         fileName += ReportTitle.replace(/ /g, "_");
 
