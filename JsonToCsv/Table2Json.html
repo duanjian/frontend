@@ -10,9 +10,9 @@
     <table id='example-table'>
         <thead>
             <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th data-override="Score">Points</th>
+                <th>姓名</th>
+                <th>年龄</th>
+                <th data-override="分数">Points</th>
             </tr>
         </thead>
         <tbody>
@@ -124,12 +124,14 @@
         fileName += ReportTitle.replace(/ /g, "_");
 
         //Initialize file format you want csv or xls
-        var uri = 'data:text/csv;charset=utf-8,' + escape(CSV);
+        // var uri = 'data:text/csv;charset=utf-8,' + escape(CSV);
+        //\ufeff BOM头，保证中文输出不乱码
+        var uri = 'data:text/csv;charset=utf-8,\ufeff' + encodeURI(CSV);
 
         // Now the little tricky part.
         // you can use either>> window.open(uri);
         // but this will not work in some browsers
-        // or you will not get the correct file extension    
+        // or you will not get the correct filfe extension    
 
         //this trick will generate a temp <a /> tag
         var link = document.createElement("a");
