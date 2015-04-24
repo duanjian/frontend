@@ -40,11 +40,11 @@
         </tbody>
     </table>
     <button type="button" id="btnCSV">button</button>
+   <!-- <script src="./json2csv-master/lib/json2csv.js"></script> -->
     <script src="./jquery-1.11.2.js"></script>
     <script src="./jquery.tabletojson.min.js"></script>
+    <script src ="./FileSaver.min.js"></script>
     <script type="text/javascript">
-
-
     // Basic Usage
     var table = $('#example-table').tableToJSON();
     // table == [{"First Name"=>"Jill", "Last Name"=>"Smith", "Score"=>"disqualified"},
@@ -61,14 +61,26 @@
     //           {"Last Name"=>"Doe", "Score"=>"80"},
     //           {"Last Name"=>"Johnson", "Score"=>"67"}]
     console.log(table);
-
+    //var json2csv = require('json2csv');
     var btn = $('#btnCSV');
     btn.on('click', function() {
         var data = table;
-        if(data == '')
+        if (data == '')
             return;
-        
+
         JSONToCSVConvertor(data, "", true);
+
+        
+        // json2csv({
+        //     data: table
+        //         //fields: ['car', 'price', 'color']
+        // }, function(err, csv) {
+        //     if (err) console.log(err);
+        //     fs.writeFile('file.csv', csv, function(err) {
+        //         if (err) throw err;
+        //         console.log('file saved');
+        //     });
+        // });
     })
 
     function JSONToCSVConvertor(JSONData, ReportTitle, ShowLabel) {
@@ -122,6 +134,13 @@
         var fileName = "Survey_Statistics";
         //this will remove the blank-spaces from the title and replace it with an underscore
         fileName += ReportTitle.replace(/ /g, "_");
+        var exportContent = "\uFEFF";
+
+        CSV = new Array(exportContent + CSV);
+        var blob = new Blob(CSV, {type: "text/csv;charset=ANSI"});
+        saveAs(blob, "Survey_Statistics.csv");
+
+        return;
 
         //Initialize file format you want csv or xls
         // var uri = 'data:text/csv;charset=utf-8,' + escape(CSV);
